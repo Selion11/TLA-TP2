@@ -1,0 +1,4 @@
+CREATE NODE node1(
+    TEXT("node1"),
+    UNION(node2)
+);

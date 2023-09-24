@@ -1,0 +1,13 @@
+CREATE NODE node1(
+    TEXT("node1")
+);
+
+CREATE NODE node2(
+    TEXT("node2"),
+    UNION(node1)
+);
+
+CREATE NODE node3(
+    TEXT("node3"),
+    UNION(node1)
+);

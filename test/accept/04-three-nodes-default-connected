@@ -1,0 +1,6 @@
+CREATE NODE node1;
+CREATE NODE node2;
+CREATE NODE node3;
+
+node3 -> node1;
+node2 -> node1;

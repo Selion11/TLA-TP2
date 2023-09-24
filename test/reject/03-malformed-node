@@ -1,0 +1,2 @@
+CREATE NODE node(
+    TEXT("Something")
