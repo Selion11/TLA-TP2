@@ -30,6 +30,24 @@
 %token <token> ERROR
 
 // IDs y tipos de los tokens terminales generados desde Flex.
+
+%token <token> CREATE
+%token <token> NODE
+%token <token> TEXT
+%token <token> UNION
+%token <token> WITH
+%token <token> BACKGROUND
+%token <token> BORDER
+%token <token> COLOR
+%token <token> RED
+%token <token> GREEN
+%token <token> BLUE
+%token <token> PURPLE
+%token <token> PINK
+%token <token> SEMMICOLON
+%token <token> ARROW
+%token <token> COMMA
+
 %token <token> ADD
 %token <token> SUB
 %token <token> MUL
