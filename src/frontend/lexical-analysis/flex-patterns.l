@@ -23,22 +23,26 @@ whitespace		[ \f\n\r\t\v]
 
 %%
 
-"/*"										{ BEGIN(COMMENT); BeginCommentPatternAction(); }
-<COMMENT>.									{ IgnoredPatternAction(yytext, yyleng); }
-<COMMENT>{endline}+							{ IgnoredPatternAction(yytext, yyleng); }
-<COMMENT>"*/"								{ EndCommentPatternAction(); BEGIN(INITIAL); }
-
-"+"											{ return AdditionOperatorPatternAction(yytext); }
-"-"											{ return SubtractionOperatorPatternAction(yytext); }
-"*"											{ return MultiplicationOperatorPatternAction(yytext); }
-"/"											{ return DivisionOperatorPatternAction(yytext); }
-
+"CREATE"                                    { return CreatePatternAction(yytext); }
+"NODE"                                      { return NodePatternAction(yytext); }
+"TEXT"                                      { return TextPatternAction(yytext); }
+"UNION"                                     { return UnionPatternAction(yytext); }
+"WITH"                                      { return WithPatternAction(yytext); }
+"BACKGROUND"                                { return BackgroundPatternAction(yytext); }
+"BORDER"                                    { return BorderPatternAction(yytext); }
+"COLOR"                                     { return ColorPatternAction(yytext); }
+"RED"                                       { return RedPatternAction(yytext); }
+"GREEN"                                     { return GreenPatternAction(yytext); }
+"BLUE"                                      { return BluePatternAction(yytext); }
+"PURPLE"                                    { return PurplePatternAction(yytext); }
+"PINK"                                      { return PinkPatternAction(yytext); }
+";"                                         { return SemmicolonPatternAction(yytext); }
+"->"                                        { return ArrowPatternAction(yytext); }
+","                                         { return CommaPatternAction(yytext); }
 "("											{ return OpenParenthesisPatternAction(yytext); }
 ")"											{ return CloseParenthesisPatternAction(yytext); }
 
-{digit}+									{ return IntegerPatternAction(yytext, yyleng); }
-
-{whitespace}+								{ IgnoredPatternAction(yytext, yyleng); }
+[ \t\n]     								{ IgnoredPatternAction(yytext, yyleng); }
 
 .											{ return UnknownPatternAction(yytext, yyleng); }
 

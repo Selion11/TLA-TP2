@@ -25,57 +25,114 @@ char * copyLexeme(const char * lexeme, const int length) {
 	return lexemeCopy;
 }
 
-void BeginCommentPatternAction() {
-	LogDebug("[Flex] [COMMENT] BeginCommentPatternAction............................");
+token CreatePatternAction(char * lexeme) {
+	LogDebug("[Flex] CreatePatternAction: '%s'.", lexeme);
+	yylval.token = CREATE;
+	return CREATE;
 }
 
-void EndCommentPatternAction() {
-	LogDebug("[Flex] [COMMENT] EndCommentPatternAction..............................");
+token NodePatternAction(char * lexeme){
+	LogDebug("[Flex] NodePatternAction: '%s'.", lexeme);
+	yylval.token = NODE;
+	return NODE;
 }
 
-token AdditionOperatorPatternAction() {
-	LogDebug("[Flex] AdditionOperatorPatternAction: '+'.");
-	yylval.token = ADD;
-	return ADD;
+token TextPatternAction(char * lexeme){
+	LogDebug("[Flex] TextPatternAction: '%s'.", lexeme);
+	yylval.token = TEXT;
+	return TEXT;
 }
 
-token CloseParenthesisPatternAction() {
-	LogDebug("[Flex] CloseParenthesisPatternAction: ')'.");
+token UnionPatternAction(char * lexeme){
+	LogDebug("[Flex] UnionPatternAction: '%s'.", lexeme);
+	yylval.token = UNION;
+	return UNION;
+}
+
+token WithPatternAction(char * lexeme){
+	LogDebug("[Flex] WithPatternAction: '%s'.", lexeme);
+	yylval.token = WITH;
+	return WITH;
+}
+
+token BackgroundPatternAction(char * lexeme){
+	LogDebug("[Flex] BackgroundPatternAction: '%s'.", lexeme);
+	yylval.token = BACKGROUND;
+	return BACKGROUND;
+}
+
+token BorderPatternAction(char * lexeme){
+	LogDebug("[Flex] BorderPatternAction: '%s'.", lexeme);
+	yylval.token = BORDER;
+	return BORDER;
+}
+
+token ColorPatternAction(char * lexeme){
+	LogDebug("[Flex] ColorPatternAction: '%s'.", lexeme);
+	yylval.token = COLOR;
+	return COLOR;
+}
+
+token RedPatternAction(char * lexeme){
+	LogDebug("[Flex] RedPatternAction: '%s'.", lexeme);
+	yylval.token = RED;
+	return RED;
+}
+
+token GreenPatternAction(char * lexeme){
+	LogDebug("[Flex] GreenPatternAction: '%s'.", lexeme);
+	yylval.token = GREEN;
+	return GREEN;
+}
+
+token BluePatternAction(char * lexeme){
+	LogDebug("[Flex] BluePatternAction: '%s'.", lexeme);
+	yylval.token = BLUE;
+	return BLUE;
+}
+
+token PurplePatternAction(char * lexeme){
+	LogDebug("[Flex] PurplePatternAction: '%s'.", lexeme);
+	yylval.token = PURPLE;
+	return PURPLE;
+}
+
+token PinkPatternAction(char * lexeme){
+	LogDebug("[Flex] PinkPatternAction: '%s'.", lexeme);
+	yylval.token = PINK;
+	return PINK;
+}
+
+token SemmicolonPatternAction(char * lexeme){
+	LogDebug("[Flex] SemmicolonPatternAction: '%s'.", lexeme);
+	yylval.token = SEMMICOLON;
+	return SEMMICOLON;
+}
+
+token ArrowPatternAction(char * lexeme){
+	LogDebug("[Flex] ArrowPatternAction: '%s'.", lexeme);
+	yylval.token = ARROW;
+	return ARROW;
+}
+
+token CommaPatternAction(char * lexeme){
+	LogDebug("[Flex] CommaPatternAction: '%s'.", lexeme);
+	yylval.token = COMMA;
+	return COMMA;
+}
+
+token CloseParenthesisPatternAction(char * lexeme) {
+	LogDebug("[Flex] CloseParenthesisPatternAction: '%s'.", lexeme);
 	yylval.token = CLOSE_PARENTHESIS;
 	return CLOSE_PARENTHESIS;
 }
 
-token DivisionOperatorPatternAction() {
-	LogDebug("[Flex] DivisionOperatorPatternAction: '/'.");
-	yylval.token = DIV;
-	return DIV;
-}
-
-token IntegerPatternAction(const char * lexeme, const int length) {
-	LogDebug("[Flex] IntegerPatternAction: '%s' (length = %d).", lexeme, length);
-	char * lexemeCopy = copyLexeme(lexeme, length);
-	yylval.integer = atoi(lexemeCopy);
-	free(lexemeCopy);
-	return INTEGER;
-}
-
-token MultiplicationOperatorPatternAction() {
-	LogDebug("[Flex] MultiplicationOperatorPatternAction: '*'.");
-	yylval.token = MUL;
-	return MUL;
-}
-
-token OpenParenthesisPatternAction() {
-	LogDebug("[Flex] OpenParenthesisPatternAction: '('.");
+token OpenParenthesisPatternAction(char * lexeme) {
+	LogDebug("[Flex] OpenParenthesisPatternAction: '%s'.", lexeme);
 	yylval.token = OPEN_PARENTHESIS;
 	return OPEN_PARENTHESIS;
 }
 
-token SubtractionOperatorPatternAction() {
-	LogDebug("[Flex] SubtractionOperatorPatternAction: '-'.");
-	yylval.token = SUB;
-	return SUB;
-}
 
 token UnknownPatternAction(const char * lexeme, const int length) {
 	char * lexemeCopy = copyLexeme(lexeme, length);
