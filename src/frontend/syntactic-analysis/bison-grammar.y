@@ -17,13 +17,17 @@
 
 	// No-terminales (frontend).
 	int program;
-	int expression;
-	int factor;
-	int constant;
+	int statement;
+	int create_node;
+	int node_properties;
+	int property_list;
+	int property;
+	int create_union;
+	int connect_nodes;
 
 	// Terminales.
 	token token;
-	int integer;
+	char * strval;
 }
 
 // Un token que jamás debe ser usado en la gramática.
@@ -47,47 +51,60 @@
 %token <token> SEMMICOLON
 %token <token> ARROW
 %token <token> COMMA
-
-%token <token> ADD
-%token <token> SUB
-%token <token> MUL
-%token <token> DIV
-
 %token <token> OPEN_PARENTHESIS
 %token <token> CLOSE_PARENTHESIS
 
-%token <integer> INTEGER
+%token <strval> NAME
+%token <strval> STRING
+
 
 // Tipos de dato para los no-terminales generados desde Bison.
 %type <program> program
-%type <expression> expression
-%type <factor> factor
-%type <constant> constant
-
-// Reglas de asociatividad y precedencia (de menor a mayor).
-%left ADD SUB
-%left MUL DIV
+%type <statement> statement
+%type <create_node> create_node
+%type <node_properties> node_properties
+%type <property_list> property_list
+%type <property> property
+%type <create_union> create_union
+%type <connect_nodes> connect_nodes
 
 // El símbolo inicial de la gramatica.
 %start program
 
 %%
 
-program: expression													{ $$ = ProgramGrammarAction($1); }
-	;
+program:  statement SEMMICOLON														{$$ = ProgramGrammarAction($1);}														
+       ;
 
-expression: expression[left] ADD expression[right]					{ $$ = AdditionExpressionGrammarAction($left, $right); }
-	| expression[left] SUB expression[right]						{ $$ = SubtractionExpressionGrammarAction($left, $right); }
-	| expression[left] MUL expression[right]						{ $$ = MultiplicationExpressionGrammarAction($left, $right); }
-	| expression[left] DIV expression[right]						{ $$ = DivisionExpressionGrammarAction($left, $right); }
-	| factor														{ $$ = FactorExpressionGrammarAction($1); }
-	;
+statement: create_node																		{$$ = 0;}
+         | create_union																		{$$ = 0;}
+         | connect_nodes																	{$$ = 0;}
+         ;
 
-factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS				{ $$ = ExpressionFactorGrammarAction($2); }
-	| constant														{ $$ = ConstantFactorGrammarAction($1); }
-	;
+create_node: CREATE NODE NAME node_properties													{$$ = 0;}
+           ;
 
-constant: INTEGER													{ $$ = IntegerConstantGrammarAction($1); }
-	;
+node_properties: 																			{$$ = 0;}
+               | OPEN_PARENTHESIS property_list CLOSE_PARENTHESIS							{$$ = 0;}
+               ;
+
+property_list: property																		{$$ = 0;}
+             | property_list COMMA property													{$$ = 0;}
+			 ;
+             
+
+property: UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS										{$$ = 0;}
+		| TEXT OPEN_PARENTHESIS STRING CLOSE_PARENTHESIS								    {$$ = 0;}
+        | BACKGROUND OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS								{$$ = 0;}
+        | BORDER OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS								    {$$ = 0;}
+		;
+        
+
+create_union: CREATE NODE NAME UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS					{$$ = 0;}
+			;
+
+
+connect_nodes: NAME ARROW NAME																	{$$ = 0;}
+			 ;
 
 %%

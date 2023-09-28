@@ -38,6 +38,8 @@ token ArrowPatternAction(char * lexeme);
 token CommaPatternAction(char * lexeme);
 token CloseParenthesisPatternAction(char * lexeme);
 token OpenParenthesisPatternAction(char * lexeme);
+token NamePatternAction(char * lexeme, const int length);
+token StringPatternAction(char * lexeme, const int length);
 
 // Patrón desconocido, permite abortar debido a un error de sintaxis.
 token UnknownPatternAction(const char * lexeme, const int length);

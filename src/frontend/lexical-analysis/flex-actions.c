@@ -133,6 +133,17 @@ token OpenParenthesisPatternAction(char * lexeme) {
 	return OPEN_PARENTHESIS;
 }
 
+token NamePatternAction(char * lexeme, const int length){
+	LogDebug("[Flex] NamePatternAction: '%s' (length = %d).", lexeme, length);
+	yylval.strval = copyLexeme(lexeme, length);
+	return NAME;
+}
+
+token StringPatternAction(char * lexeme, const int length){
+	LogDebug("[Flex] StringPatternAction: '%s' (length = %d).", lexeme, length);
+	yylval.strval = copyLexeme(lexeme, length);
+	return STRING;
+}
 
 token UnknownPatternAction(const char * lexeme, const int length) {
 	char * lexemeCopy = copyLexeme(lexeme, length);

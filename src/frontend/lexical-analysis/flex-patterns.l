@@ -44,6 +44,13 @@ whitespace		[ \f\n\r\t\v]
 
 [ \t\n]     								{ IgnoredPatternAction(yytext, yyleng); }
 
+
+
+["]([^"\\\n]|\\(.|\n))*["]                  { return StringPatternAction(yytext, yyleng); }
+
+
+[A-Za-z][A-Za-z0-9_]*                       { return NamePatternAction(yytext, yyleng); }
+
 .											{ return UnknownPatternAction(yytext, yyleng); }
 
 %%
