@@ -133,6 +133,19 @@ token OpenParenthesisPatternAction(char * lexeme) {
 	return OPEN_PARENTHESIS;
 }
 
+token LinePatterActions(char * lexeme) {
+	LogDebug("[Flex] LinePatternActions: '%s'.",lexeme);
+	yylval.token = LINE;
+	return LINE;
+
+}
+
+token SecondColorPatternActions(char * lexeme){
+	LogDebug("[Flex] SecondColorPatternActions: '%s'.",lexeme);
+	yylval.token = COLOR;
+	return COLOR;
+}
+
 token NamePatternAction(char * lexeme, const int length){
 	LogDebug("[Flex] NamePatternAction: '%s' (length = %d).", lexeme, length);
 	yylval.strval = copyLexeme(lexeme, length);

@@ -81,7 +81,8 @@ statement: create_node																		{$$ = 0;}
          | connect_nodes																	{$$ = 0;}
          ;
 
-create_node: CREATE NODE NAME node_properties													{$$ = 0;}
+create_node: CREATE NODE NAME node_properties												{$$ = 0;}
+			| CREATE NAME 																	{$$ = 0;}
            ;
 
 node_properties: 																			{$$ = 0;}

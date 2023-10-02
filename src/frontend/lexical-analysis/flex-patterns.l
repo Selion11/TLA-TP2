@@ -20,6 +20,7 @@
 digit			[0-9]
 endline			[\n]
 whitespace		[ \f\n\r\t\v]
+color           ["RED","GREEN","BLUE","PURPLE","PINK"]
 
 %%
 
@@ -41,6 +42,8 @@ whitespace		[ \f\n\r\t\v]
 ","                                         { return CommaPatternAction(yytext); }
 "("											{ return OpenParenthesisPatternAction(yytext); }
 ")"											{ return CloseParenthesisPatternAction(yytext); }
+"LINE"                                      { return LinePatterActions(yytext); }
+{color}                                     { return SecondColorPatternActions(yytext); }
 
 [ \t\n]     								{ IgnoredPatternAction(yytext, yyleng); }
 
