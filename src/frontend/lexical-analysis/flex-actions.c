@@ -140,9 +140,9 @@ token LinePatterActions(char * lexeme) {
 
 }
 
-token SecondColorPatternActions(char * lexeme){
-	LogDebug("[Flex] SecondColorPatternActions: '%s'.",lexeme);
-	yylval.token = COLOR;
+token SecondColorPatternActions(char * lexeme, const int length){
+	LogDebug("[Flex] SecondColorPatternActions: '%s' (length = %d).",lexeme, length);
+	yylval.strval = copyLexeme(lexeme, length);
 	return COLOR;
 }
 
@@ -150,6 +150,12 @@ token NamePatternAction(char * lexeme, const int length){
 	LogDebug("[Flex] NamePatternAction: '%s' (length = %d).", lexeme, length);
 	yylval.strval = copyLexeme(lexeme, length);
 	return NAME;
+}
+
+token LineTypesPatterActions(char * lexeme, const int length){
+	LogDebug("[Flex] LineTypesPatterActions: '%s'.",lexeme);
+	yylval.strval = copyLexeme(lexeme, length);
+	return LINETYPE;
 }
 
 token StringPatternAction(char * lexeme, const int length){

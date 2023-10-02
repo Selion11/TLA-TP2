@@ -53,6 +53,8 @@
 %token <token> COMMA
 %token <token> OPEN_PARENTHESIS
 %token <token> CLOSE_PARENTHESIS
+%token <token> LINE
+%token <token> LINETYPE
 
 %token <strval> NAME
 %token <strval> STRING
@@ -98,6 +100,7 @@ property: UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS										{$$ = 0;}
 		| TEXT OPEN_PARENTHESIS STRING CLOSE_PARENTHESIS								    {$$ = 0;}
         | BACKGROUND OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS								{$$ = 0;}
         | BORDER OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS								    {$$ = 0;}
+		| LINE LINETYPE																		{$$ = 0;}
 		;
         
 
