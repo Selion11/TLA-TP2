@@ -24,6 +24,8 @@
 	int property;
 	int create_union;
 	int connect_nodes;
+	int border;
+	int node_list;
 
 	// Terminales.
 	token token;
@@ -69,40 +71,48 @@
 %type <property> property
 %type <create_union> create_union
 %type <connect_nodes> connect_nodes
+%type <border> border
+%type <node_list> node_list
 
 // El símbolo inicial de la gramatica.
 %start program
 
 %%
 
-program:  statement SEMMICOLON														{$$ = ProgramGrammarAction($1);}														
+program:  statement SEMMICOLON																	{$$ = ProgramGrammarAction($1);}														
        ;
 
-statement: create_node																		{$$ = 0;}
-         | create_union																		{$$ = 0;}
-         | connect_nodes																	{$$ = 0;}
+statement: create_union																			{$$ = 0;}
+         | connect_nodes																		{$$ = 0;}
+		 | node_list																			{$$ = 0;}
          ;
 
-create_node: CREATE NODE NAME node_properties												{$$ = 0;}
-			| CREATE NAME 																	{$$ = 0;}
+node_list: create_node 																			{$$ = 0;} 
+		 | node_list create_node																{$$ = 0;} 
+		 ;
+
+create_node: CREATE NODE NAME node_properties													{$$ = 0;} 																
            ;
 
-node_properties: 																			{$$ = 0;}
-               | OPEN_PARENTHESIS property_list CLOSE_PARENTHESIS							{$$ = 0;}
+node_properties: 																				{$$ = 0;}
+               | OPEN_PARENTHESIS property_list CLOSE_PARENTHESIS								{$$ = 0;}
+			   | OPEN_PARENTHESIS CLOSE_PARENTHESIS												{$$ = 0;}
                ;
 
-property_list: property																		{$$ = 0;}
-             | property_list COMMA property													{$$ = 0;}
+property_list: property																			{$$ = 0;}
+             | property_list COMMA property														{$$ = 0;}
 			 ;
              
 
-property: UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS										{$$ = 0;}
-		| TEXT OPEN_PARENTHESIS STRING CLOSE_PARENTHESIS								    {$$ = 0;}
-        | BACKGROUND OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS								{$$ = 0;}
-        | BORDER OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS								    {$$ = 0;}
-		| LINE LINETYPE																		{$$ = 0;}
+property: UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS											{$$ = 0;}
+		| TEXT OPEN_PARENTHESIS STRING CLOSE_PARENTHESIS								    	{$$ = 0;}
+        | BACKGROUND OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS									{$$ = 0;}
+        | border								    											{$$ = 0;}
+		| LINE LINETYPE																			{$$ = 0;}
 		;
         
+border:  BORDER OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS								    	{$$ = 0;}
+		;
 
 create_union: CREATE NODE NAME UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS					{$$ = 0;}
 			;

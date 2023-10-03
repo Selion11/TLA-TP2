@@ -20,7 +20,7 @@
 digit			[0-9]
 endline			[\n]
 whitespace		[ \f\n\r\t\v]
-color           ["RED","GREEN","BLUE","PURPLE","PINK"]
+lineTypes       ["STRONG","DOTTED","WIGGLE"]
 
 %%
 
@@ -43,7 +43,7 @@ color           ["RED","GREEN","BLUE","PURPLE","PINK"]
 "("											{ return OpenParenthesisPatternAction(yytext); }
 ")"											{ return CloseParenthesisPatternAction(yytext); }
 "LINE"                                      { return LinePatterActions(yytext); }
-{color}                                     { return SecondColorPatternActions(yytext); }
+{lineTypes}                                 { return LineTypesPatterActions(yytext); }
 
 [ \t\n]     								{ IgnoredPatternAction(yytext, yyleng); }
 

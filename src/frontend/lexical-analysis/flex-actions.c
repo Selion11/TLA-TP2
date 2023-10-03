@@ -76,31 +76,31 @@ token ColorPatternAction(char * lexeme){
 token RedPatternAction(char * lexeme){
 	LogDebug("[Flex] RedPatternAction: '%s'.", lexeme);
 	yylval.token = RED;
-	return RED;
+	return COLOR;
 }
 
 token GreenPatternAction(char * lexeme){
 	LogDebug("[Flex] GreenPatternAction: '%s'.", lexeme);
 	yylval.token = GREEN;
-	return GREEN;
+	return COLOR;
 }
 
 token BluePatternAction(char * lexeme){
 	LogDebug("[Flex] BluePatternAction: '%s'.", lexeme);
 	yylval.token = BLUE;
-	return BLUE;
+	return COLOR;
 }
 
 token PurplePatternAction(char * lexeme){
 	LogDebug("[Flex] PurplePatternAction: '%s'.", lexeme);
 	yylval.token = PURPLE;
-	return PURPLE;
+	return COLOR;
 }
 
 token PinkPatternAction(char * lexeme){
 	LogDebug("[Flex] PinkPatternAction: '%s'.", lexeme);
 	yylval.token = PINK;
-	return PINK;
+	return COLOR;
 }
 
 token SemmicolonPatternAction(char * lexeme){
@@ -140,12 +140,6 @@ token LinePatterActions(char * lexeme) {
 
 }
 
-token SecondColorPatternActions(char * lexeme, const int length){
-	LogDebug("[Flex] SecondColorPatternActions: '%s' (length = %d).",lexeme, length);
-	yylval.strval = copyLexeme(lexeme, length);
-	return COLOR;
-}
-
 token NamePatternAction(char * lexeme, const int length){
 	LogDebug("[Flex] NamePatternAction: '%s' (length = %d).", lexeme, length);
 	yylval.strval = copyLexeme(lexeme, length);
@@ -154,7 +148,7 @@ token NamePatternAction(char * lexeme, const int length){
 
 token LineTypesPatterActions(char * lexeme, const int length){
 	LogDebug("[Flex] LineTypesPatterActions: '%s'.",lexeme);
-	yylval.strval = copyLexeme(lexeme, length);
+	/*yylval.strval = copyLexeme(lexeme, length);*/
 	return LINETYPE;
 }
 
