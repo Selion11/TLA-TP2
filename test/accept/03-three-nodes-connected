@@ -3,11 +3,11 @@ CREATE NODE node1(
 );
 
 CREATE NODE node2(
-    TEXT("node2"),
+    TEXT("node2")
     
 );
 
 CREATE NODE node3(
-    TEXT("node3"),
+    TEXT("node3")
    
 );

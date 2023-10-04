@@ -18,6 +18,7 @@
 	// No-terminales (frontend).
 	int program;
 	int statement;
+	int statement_list;
 	int create_node;
 	int node_properties;
 	int property_list;
@@ -64,6 +65,7 @@
 
 // Tipos de dato para los no-terminales generados desde Bison.
 %type <program> program
+%type <statement_list> statement_list
 %type <statement> statement
 %type <create_node> create_node
 %type <node_properties> node_properties
@@ -79,17 +81,17 @@
 
 %%
 
-program:  statement SEMMICOLON																	{$$ = ProgramGrammarAction($1);}														
-       ;
+program:  statement_list																	    {$$ = ProgramGrammarAction($1);}														
+		 ;
+
+statement_list: statement SEMMICOLON															{$$ = 0;}
+              | statement_list statement SEMMICOLON												{$$ = 0;}
+              ;		
 
 statement: create_union																			{$$ = 0;}
          | connect_nodes																		{$$ = 0;}
-		 | node_list																			{$$ = 0;}
+		 | create_node																			{$$ = 0;}
          ;
-
-node_list: create_node 																			{$$ = 0;} 
-		 | node_list create_node																{$$ = 0;} 
-		 ;
 
 create_node: CREATE NODE NAME node_properties													{$$ = 0;} 																
            ;
@@ -111,7 +113,7 @@ property: UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS											{$$ = 0;}
 		| LINE LINETYPE																			{$$ = 0;}
 		;
         
-border:  BORDER OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS								    	{$$ = 0;}
+border:  BORDER COLOR OPEN_PARENTHESIS COLOR CLOSE_PARENTHESIS								    {$$ = 0;}
 		;
 
 create_union: CREATE NODE NAME UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS					{$$ = 0;}
