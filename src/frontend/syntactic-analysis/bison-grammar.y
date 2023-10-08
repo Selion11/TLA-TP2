@@ -88,8 +88,7 @@ statement_list: statement SEMMICOLON															{$$ = 0;}
               | statement_list statement SEMMICOLON												{$$ = 0;}
               ;		
 
-statement: create_union																			{$$ = 0;}
-         | connect_nodes																		{$$ = 0;}
+statement: connect_nodes																		{$$ = 0;}
 		 | create_node																			{$$ = 0;}
          ;
 
@@ -107,6 +106,7 @@ property_list: property																			{$$ = 0;}
              
 
 property: UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS	LINE LINETYPE							{$$ = 0;}
+		| UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS											{$$ = 0;}
 		| TEXT OPEN_PARENTHESIS STRING CLOSE_PARENTHESIS								    	{$$ = 0;}
         | BACKGROUND OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS									{$$ = 0;}
         | border								    											{$$ = 0;}
