@@ -160,6 +160,7 @@ token NamePatternAction(char * lexeme, const int length){
 
 token LineTypesPatterActions(char * lexeme, const int length){
 	LogDebug("[Flex] LineTypesPatterActions: '%s'.",lexeme);
+	yylval.token = LINETYPE;
 	/*yylval.strval = copyLexeme(lexeme, length);*/
 	return LINETYPE;
 }

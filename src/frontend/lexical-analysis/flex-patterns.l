@@ -20,7 +20,7 @@
 digit			[0-9]
 endline			[\n]
 whitespace		[ \f\n\r\t\v]
-lineTypes       ["STRONG","DOTTED","WIGGLE"]
+
 
 %%
 
@@ -45,7 +45,9 @@ lineTypes       ["STRONG","DOTTED","WIGGLE"]
 "LINE"                                      { return LinePatterActions(yytext); }
 "@"                                         { return LoopPatternActions(yytext); }
 "<->"                                       { return DoubleUnionPatternActions(yytext); }
-{lineTypes}                                 { return LineTypesPatterActions(yytext); }
+"STRONG"                                    { return LineTypesPatterActions(yytext); }
+"DOTTED"                                    { return LineTypesPatterActions(yytext); }
+"WIGGLY"                                    { return LineTypesPatterActions(yytext); }
 
 [ \t\n]     								{ IgnoredPatternAction(yytext, yyleng); }
 
