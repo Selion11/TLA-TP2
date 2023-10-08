@@ -115,6 +115,18 @@ token ArrowPatternAction(char * lexeme){
 	return ARROW;
 }
 
+token DoubleUnionPatternActions(char * lexeme){
+	LogDebug("[Flex] DoubleUnionPatternActions: '%s'.", lexeme);
+	yylval.token = DOUBLE_UNION;
+	return DOUBLE_UNION;
+}
+
+token LoopPatternActions(char * lexeme){
+	LogDebug("[Flex] LoopPatternAction: '%s'.", lexeme);
+	yylval.token = LOOP;
+	return LOOP;
+}
+
 token CommaPatternAction(char * lexeme){
 	LogDebug("[Flex] CommaPatternAction: '%s'.", lexeme);
 	yylval.token = COMMA;

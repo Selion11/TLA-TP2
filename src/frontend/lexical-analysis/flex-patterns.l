@@ -43,6 +43,8 @@ lineTypes       ["STRONG","DOTTED","WIGGLE"]
 "("											{ return OpenParenthesisPatternAction(yytext); }
 ")"											{ return CloseParenthesisPatternAction(yytext); }
 "LINE"                                      { return LinePatterActions(yytext); }
+"@"                                         { return LoopPatternActions(yytext); }
+"<->"                                       { return DoubleUnionPatternActions(yytext); }
 {lineTypes}                                 { return LineTypesPatterActions(yytext); }
 
 [ \t\n]     								{ IgnoredPatternAction(yytext, yyleng); }

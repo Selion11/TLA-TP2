@@ -26,7 +26,6 @@
 	int create_union;
 	int connect_nodes;
 	int border;
-	int node_list;
 
 	// Terminales.
 	token token;
@@ -58,6 +57,8 @@
 %token <token> CLOSE_PARENTHESIS
 %token <token> LINE
 %token <token> LINETYPE
+%token <token> LOOP
+%token <token> DOUBLE_UNION
 
 %token <strval> NAME
 %token <strval> STRING
@@ -74,7 +75,6 @@
 %type <create_union> create_union
 %type <connect_nodes> connect_nodes
 %type <border> border
-%type <node_list> node_list
 
 // El símbolo inicial de la gramatica.
 %start program
@@ -120,7 +120,9 @@ create_union: CREATE NODE NAME UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS				
 			;
 
 
-connect_nodes: NAME ARROW NAME																	{$$ = 0;}
+connect_nodes: 	NAME ARROW NAME																	{$$ = 0;}
+			| 	NAME DOUBLE_UNION NAME 															{$$ = 0;}
+			| 	NAME LOOP 																		{$$ = 0;}
 			 ;
 
 %%
