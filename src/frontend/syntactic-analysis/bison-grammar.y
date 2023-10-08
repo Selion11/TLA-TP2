@@ -72,7 +72,6 @@
 %type <node_properties> node_properties
 %type <property_list> property_list
 %type <property> property
-%type <create_union> create_union
 %type <connect_nodes> connect_nodes
 %type <border> border
 
@@ -114,9 +113,6 @@ property: UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS	LINE LINETYPE							{$$ 
         
 border:  BORDER COLOR OPEN_PARENTHESIS COLOR CLOSE_PARENTHESIS								    {$$ = 0;}
 		;
-
-create_union: CREATE NODE NAME UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS					{$$ = 0;}
-			;
 
 
 connect_nodes: 	NAME ARROW NAME																	{$$ = 0;}
