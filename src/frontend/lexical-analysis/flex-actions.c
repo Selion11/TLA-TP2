@@ -145,7 +145,7 @@ token OpenParenthesisPatternAction(char * lexeme) {
 	return OPEN_PARENTHESIS;
 }
 
-token LinePatterActions(char * lexeme) {
+token LinePatternActions(char * lexeme) {
 	LogDebug("[Flex] LinePatternActions: '%s'.",lexeme);
 	yylval.token = LINE;
 	return LINE;
@@ -158,7 +158,7 @@ token NamePatternAction(char * lexeme, const int length){
 	return NAME;
 }
 
-token LineTypesPatterActions(char * lexeme, const int length){
+token LineTypesPatternActions(char * lexeme){
 	LogDebug("[Flex] LineTypesPatterActions: '%s'.",lexeme);
 	yylval.token = LINETYPE;
 	/*yylval.strval = copyLexeme(lexeme, length);*/

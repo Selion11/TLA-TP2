@@ -42,12 +42,12 @@ whitespace		[ \f\n\r\t\v]
 ","                                         { return CommaPatternAction(yytext); }
 "("											{ return OpenParenthesisPatternAction(yytext); }
 ")"											{ return CloseParenthesisPatternAction(yytext); }
-"LINE"                                      { return LinePatterActions(yytext); }
+"LINE"                                      { return LinePatternActions(yytext); }
 "@"                                         { return LoopPatternActions(yytext); }
 "<->"                                       { return DoubleUnionPatternActions(yytext); }
-"STRONG"                                    { return LineTypesPatterActions(yytext); }
-"DOTTED"                                    { return LineTypesPatterActions(yytext); }
-"WIGGLY"                                    { return LineTypesPatterActions(yytext); }
+"STRONG"                                    { return LineTypesPatternActions(yytext); }
+"DOTTED"                                    { return LineTypesPatternActions(yytext); }
+"WIGGLY"                                    { return LineTypesPatternActions(yytext); }
 
 [ \t\n]     								{ IgnoredPatternAction(yytext, yyleng); }
 
