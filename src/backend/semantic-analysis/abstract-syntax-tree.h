@@ -26,27 +26,27 @@ typedef struct {
 * posee según el valor de este enumerado.
 */
 typedef enum {
-	EXPRESSION,
-	CONSTANT
-} FactorType;
+	COLOR,
+	BORDER,
+	BACKGROUND,
+	TEXT
+} PropertyType;
 
 typedef struct {
-	FactorType type;
-	Expression * expression;
-} Factor;
+	PropertyType type;
+	char * description;
+} Properties;
 
 typedef enum {
-	ADDITION,
-	SUBTRACTION,
-	MULTIPLICATION,
-	DIVISION,
-	FACTOR
-} ExpressionType;
+	NODE_CREATION,
+	UNION_CREATION,
+	CONNECTION
+} StatementType;
 
-struct Expression {
-	ExpressionType type;
-	Expression * leftExpression;
-	Expression * rightExpression;
+struct Statement {
+	StatementType type;
+	char * name;
+	Properties * props;
 };
 
 typedef struct {
