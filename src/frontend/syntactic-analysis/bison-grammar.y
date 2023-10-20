@@ -25,7 +25,6 @@
 	int property;
 	int create_union;
 	int connect_nodes;
-	int border;
 
 	// Terminales.
 	token token;
@@ -73,7 +72,6 @@
 %type <property_list> property_list
 %type <property> property
 %type <connect_nodes> connect_nodes
-%type <border> border
 
 // El símbolo inicial de la gramatica.
 %start program
@@ -108,16 +106,16 @@ property: UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS	LINE LINETYPE							{$$ 
 		| UNION OPEN_PARENTHESIS NAME CLOSE_PARENTHESIS											{$$ = 0;}
 		| TEXT OPEN_PARENTHESIS STRING CLOSE_PARENTHESIS								    	{$$ = 0;}
         | BACKGROUND OPEN_PARENTHESIS COLOR	CLOSE_PARENTHESIS									{$$ = 0;}
-        | border								    											{$$ = 0;}
+        | BORDER COLOR OPEN_PARENTHESIS COLOR CLOSE_PARENTHESIS								    {$$ = 0;}										{$$ = 0;}
 		;
         
-border:  BORDER COLOR OPEN_PARENTHESIS COLOR CLOSE_PARENTHESIS								    {$$ = 0;}
-		;
-
 
 connect_nodes: 	NAME ARROW NAME																	{$$ = 0;}
 			| 	NAME DOUBLE_UNION NAME 															{$$ = 0;}
 			| 	NAME LOOP 																		{$$ = 0;}
-			 ;
+			|   NAME ARROW NAME	LINE LINETYPE													{$$ = 0;}
+			| 	NAME DOUBLE_UNION NAME LINE LINETYPE 											{$$ = 0;}
+			| 	NAME LOOP LINE LINETYPE															{$$ = 0;}
+			;
 
 %%

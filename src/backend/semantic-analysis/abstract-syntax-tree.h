@@ -25,6 +25,29 @@ typedef struct {
 * De este modo, al recorrer el AST, es posible determinar qué nodos hijos
 * posee según el valor de este enumerado.
 */
+typedef struct {
+	Expression * expression;
+} Program;
+ 
+typedef struct {
+	statement * statements;
+} statement_list;
+
+typedef union{
+	connect_nodes * connection;
+	create_node * creation;
+} statement;
+
+typedef struct {
+	char * name;
+	node_properties * props;
+}
+
+typedef union{
+	property * prop;
+	node_union * uni;
+}
+
 typedef enum {
 	COLOR,
 	BORDER,
@@ -35,22 +58,33 @@ typedef enum {
 typedef struct {
 	PropertyType type;
 	char * description;
-} Properties;
+} property;
 
-typedef enum {
-	NODE_CREATION,
-	UNION_CREATION,
-	CONNECTION
-} StatementType;
-
-struct Statement {
-	StatementType type;
-	char * name;
-	Properties * props;
-};
+typedef enum{
+	STRONG,
+	DOTTED,
+	WIGGLY
+} LineType;
 
 typedef struct {
-	Expression * expression;
-} Program;
+	char * name_node_to_unite;
+	LineType line;
+} node_union;
+
+typedef enum {
+	ARROW,
+	DOUBLE_ARROW,
+	LOOP
+} union_types;
+
+typedef struct{
+	union_types type;
+	char * node_to;
+	char * node_from;
+	LineType line;
+} connect_nodes;
+
+
+
 
 #endif
