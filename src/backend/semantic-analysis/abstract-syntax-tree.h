@@ -26,7 +26,7 @@ typedef struct {
 * posee según el valor de este enumerado.
 */
 typedef struct {
-	Expression * expression;
+	statement_list * list;
 } Program;
  
 typedef struct {
@@ -37,16 +37,20 @@ typedef union{
 	connect_nodes * connection;
 	create_node * creation;
 } statement;
+typedef enum{
+	CREATION,
+	UNION
+} actionType;
 
 typedef struct {
+	actionType type;
 	char * name;
 	node_properties * props;
-}
+} create_node;
 
-typedef union{
-	property * prop;
-	node_union * uni;
-}
+typedef struct{
+	propertyList * props;
+} node_properties;
 
 typedef enum {
 	COLOR,
@@ -54,6 +58,10 @@ typedef enum {
 	BACKGROUND,
 	TEXT
 } PropertyType;
+
+typedef struct{
+	property * list;
+}propertyList;
 
 typedef struct {
 	PropertyType type;
@@ -63,13 +71,9 @@ typedef struct {
 typedef enum{
 	STRONG,
 	DOTTED,
-	WIGGLY
+	WIGGLY,
+	UNSPECIFIED
 } LineType;
-
-typedef struct {
-	char * name_node_to_unite;
-	LineType line;
-} node_union;
 
 typedef enum {
 	ARROW,
@@ -78,13 +82,11 @@ typedef enum {
 } union_types;
 
 typedef struct{
+	actionType action;
 	union_types type;
 	char * node_to;
 	char * node_from;
 	LineType line;
 } connect_nodes;
-
-
-
 
 #endif
