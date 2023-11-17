@@ -25,68 +25,69 @@ typedef struct {
 * De este modo, al recorrer el AST, es posible determinar qué nodos hijos
 * posee según el valor de este enumerado.
 */
-typedef struct {
-	statement_list * list;
-} Program;
- 
-typedef struct {
-	statement * statements;
-} statement_list;
 
-typedef union{
-	connect_nodes * connection;
-	create_node * creation;
-} statement;
 typedef enum{
-	CREATION,
-	UNION
-} actionType;
-
-typedef struct {
-	actionType type;
-	char * name;
-	node_properties * props;
-} create_node;
-
-typedef struct{
-	propertyList * props;
-} node_properties;
+	CREATION_AC,
+	UNION_AC
+} ActionType;
 
 typedef enum {
-	COLOR,
-	BORDER,
-	BACKGROUND,
-	TEXT
+	COLOR_PROP,
+	BORDER_PROP,
+	BACKGROUND_PROP,
+	TEXT_PROP
 } PropertyType;
 
-typedef struct{
-	property * list;
-}propertyList;
-
-typedef struct {
-	PropertyType type;
-	char * description;
-} property;
-
 typedef enum{
-	STRONG,
-	DOTTED,
-	WIGGLY,
-	UNSPECIFIED
+	STRONG_LINE,
+	DOTTED_LINE,
+	WIGGLY_LINE,
+	UNSPECIFIED_LINE
 } LineType;
 
 typedef enum {
-	ARROW,
-	DOUBLE_ARROW,
-	LOOP
-} union_types;
+	ARROW_UNION,
+	DOUBLE_ARROW_UNION,
+	LOOP_UNION
+} UnionType;
+
+typedef struct {
+	PropertyType propertyType;
+	char * description;
+} Property;
 
 typedef struct{
-	actionType action;
-	union_types type;
+	Property * property;
+} PropertyList;
+
+typedef struct{
+	PropertyList * propertyList;
+} NodeProperties;
+
+typedef struct {
+	char * name;
+	NodeProperties * nodeProperties;
+} CreateNode;
+
+typedef struct{
+	UnionType unionType;
 	char * node_to;
 	char * node_from;
-	LineType line;
-} connect_nodes;
+	LineType lineType;
+} ConnectNodes;
+
+typedef union{
+	ActionType actionType;
+	ConnectNodes * connectNodes;
+	CreateNode * createNode;
+} Statement;
+
+typedef struct {
+	Statement * statement;
+} StatementList;
+
+typedef struct {
+	StatementList * statementList;
+} Program;
 
 #endif
