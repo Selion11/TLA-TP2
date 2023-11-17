@@ -51,13 +51,15 @@ typedef enum {
 	LOOP_UNION
 } UnionType;
 
-typedef struct {
+typedef struct Property{
 	PropertyType propertyType;
 	char * description;
+	struct Property * nextProperty;
 } Property;
 
 typedef struct{
-	Property * property;
+	int size;
+	Property * firstProperty;
 } PropertyList;
 
 typedef struct{
@@ -76,14 +78,16 @@ typedef struct{
 	LineType lineType;
 } ConnectNodes;
 
-typedef union{
+typedef struct Statement{
 	ActionType actionType;
 	ConnectNodes * connectNodes;
 	CreateNode * createNode;
+	struct Statement * nextStatement;
 } Statement;
 
 typedef struct {
-	Statement * statement;
+	int size;
+	Statement * firstStatement;
 } StatementList;
 
 typedef struct {
