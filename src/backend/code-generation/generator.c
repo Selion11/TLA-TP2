@@ -7,6 +7,9 @@
 
 FILE * file;
 
+//Utility method
+const char* colorTypeToString(ColorType colorType);
+
 void Generator(Program * result) {
 	LogDebug("[Generator] Program");
 
@@ -47,9 +50,9 @@ void generateStatementList(StatementList * statementList, const char * parentNod
 void generateCreateNode(CreateNode * createNode, const char * parentNode) {
 	LogDebug("[Generator] createNode");
     if (createNode != NULL) {
-        fprintf(file, "  %s [", createNode->name, createNode->name);
+        fprintf(file, "  %s [", createNode->name);
         generateNodeProperties(createNode->nodeProperties, "createNode_%p", createNode);
-		fprintf(file, "];");
+		fprintf(file, "];\n");
     }
 }
 
@@ -66,11 +69,10 @@ void generatePropertyList(PropertyList * propertyList, const char * parentNode, 
     
     while (property != NULL) {
         if (property->propertyType == TEXT_PROP) {
-            fprintf(file, "label=%s, ",property->value.text);
-        } else if (property->propertyType == BACKGROUND_PROP) {
-            fprintf(file, "fillcolor=\"%s\", ",property->value.colorType);
-        } else if (property->propertyType == BORDER_PROP) {
-            fprintf(file, "color=\"%s\", ", (void *) property, property->value.colorType);
+            fprintf(file, "label=%s, ", property->value.text);
+        } else if (property->propertyType == BACKGROUND_PROP || property->propertyType == BORDER_PROP) {
+            const char * colorString = colorTypeToString(property->value.colorType);
+            fprintf(file, "%s=%s, ", (property->propertyType == BACKGROUND_PROP) ? "style=filled, fillcolor" : "color", colorString);
         }
         
         property = property->nextProperty;
@@ -102,4 +104,23 @@ void generateLineType(LineType lineType, const char * parentNode, ConnectNodes *
 	else if (lineType == STRONG_LINE){
 		fprintf(file, "[style=bold]");
 	}
+}
+
+/*********************************************************Utility Methods**************************************************************************/
+
+const char* colorTypeToString(ColorType colorType) {
+    switch (colorType) {
+        case PINK_COLOR:
+            return "pink";
+        case RED_COLOR:
+            return "red";
+        case GREEN_COLOR:
+            return "green";
+        case BLUE_COLOR:
+            return "blue";
+        case PURPLE_COLOR:
+            return "violet";
+        default:
+            return "unknown_color";
+    }
 }
