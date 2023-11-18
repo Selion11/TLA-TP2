@@ -75,31 +75,31 @@ token ColorPatternAction(char * lexeme){
 
 token RedPatternAction(char * lexeme){
 	LogDebug("[Flex] RedPatternAction: '%s'.", lexeme);
-	yylval.token = RED;
+	yylval.colorType = RED_COLOR;
 	return COLOR;
 }
 
 token GreenPatternAction(char * lexeme){
 	LogDebug("[Flex] GreenPatternAction: '%s'.", lexeme);
-	yylval.token = GREEN;
+	yylval.colorType = GREEN_COLOR;
 	return COLOR;
 }
 
 token BluePatternAction(char * lexeme){
 	LogDebug("[Flex] BluePatternAction: '%s'.", lexeme);
-	yylval.token = BLUE;
+	yylval.colorType = BLUE_COLOR;
 	return COLOR;
 }
 
 token PurplePatternAction(char * lexeme){
 	LogDebug("[Flex] PurplePatternAction: '%s'.", lexeme);
-	yylval.token = PURPLE;
+	yylval.colorType = PURPLE_COLOR;
 	return COLOR;
 }
 
 token PinkPatternAction(char * lexeme){
 	LogDebug("[Flex] PinkPatternAction: '%s'.", lexeme);
-	yylval.token = PINK;
+	yylval.colorType = PINK_COLOR;
 	return COLOR;
 }
 

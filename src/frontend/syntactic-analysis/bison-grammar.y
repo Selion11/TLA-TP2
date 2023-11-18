@@ -32,6 +32,7 @@
 	// Terminales.
 	token token;
 	char * strval;
+	ColorType colorType;
 }
 
 // Un token que jamás debe ser usado en la gramática.

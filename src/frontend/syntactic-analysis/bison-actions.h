@@ -32,9 +32,9 @@ Property * CustomUnionPropertyAction(char * nodeToName, LineType lineType);
 Property * DefaultUnionPropertyAction(char * nodeToName);
 Property * NodeTextPropertyAction(char * text);
 //Check this one
-Property * NodeBackgroundColorPropertyAction(int color);
+Property * NodeBackgroundColorPropertyAction(ColorType color);
 //Check this one
-Property * NodeBorderColorPropertyAction(int color);
+Property * NodeBorderColorPropertyAction(ColorType color);
 
 ConnectNodes * SimpleShortUnionPropertyAction(char * nodeFromName, char * nodeToName);
 ConnectNodes * DoubleShortUnionPropertyAction(char * nodeFromName, char * nodeToName);

@@ -241,8 +241,9 @@ Property * NodeTextPropertyAction(char * text) {
     return property;
 }
 
-Property * NodeBackgroundColorPropertyAction(int color) {
-    Property *property = malloc(sizeof(Property));
+Property * NodeBackgroundColorPropertyAction(ColorType color) {
+	LogDebug("[Bison] NodeBackgroundColorPropertyAction");
+    Property *property = calloc(1,sizeof(Property));
     if (property == NULL) {
         LogError("Error from calloc [property]");
         return NULL;
@@ -255,8 +256,9 @@ Property * NodeBackgroundColorPropertyAction(int color) {
     return property;
 }
 
-Property * NodeBorderColorPropertyAction(int color) {
-    Property *property = malloc(sizeof(Property));
+Property * NodeBorderColorPropertyAction(ColorType color) {
+	LogDebug("[Bison] NodeBorderColorPropertyAction");
+    Property *property = calloc(1,sizeof(Property));
     if (property == NULL) {
         LogError("Error from calloc [property]");
         return NULL;
