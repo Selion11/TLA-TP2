@@ -35,7 +35,8 @@ typedef enum {
 	COLOR_PROP,
 	BORDER_PROP,
 	BACKGROUND_PROP,
-	TEXT_PROP
+	TEXT_PROP,
+	UNION_PROP
 } PropertyType;
 
 typedef enum{
@@ -51,11 +52,27 @@ typedef enum {
 	LOOP_UNION
 } UnionType;
 
-typedef struct Property{
-	PropertyType propertyType;
-	char * description;
-	struct Property * nextProperty;
+typedef enum {
+	PINK_COLOR,
+	RED_COLOR,
+	GREEN_COLOR,
+	BLUE_COLOR,
+	PURPLE_COLOR
+} ColorType;
+
+typedef struct Property {
+    PropertyType propertyType;
+    union {
+        char * text;
+        ColorType colorType;
+        struct {
+            char *nodeName;
+            LineType lineType;
+        } unionProp;
+    } value;
+    struct Property *nextProperty;
 } Property;
+
 
 typedef struct{
 	int size;
@@ -73,8 +90,8 @@ typedef struct {
 
 typedef struct{
 	UnionType unionType;
-	char * node_to;
-	char * node_from;
+	char * nodeTo;
+	char * nodeFrom;
 	LineType lineType;
 } ConnectNodes;
 

@@ -12,20 +12,35 @@
  */
 
 // Programa.
-int ProgramGrammarAction(const int value);
+Program * ProgramGrammarAction(StatementList * statementList);
 
-// Expresión.
-int AdditionExpressionGrammarAction(const int leftValue, const int rightValue);
-int SubtractionExpressionGrammarAction(const int leftValue, const int rightValue);
-int MultiplicationExpressionGrammarAction(const int leftValue, const int rightValue);
-int DivisionExpressionGrammarAction(const int leftValue, const int rightValue);
-int FactorExpressionGrammarAction(const int value);
+StatementList * SimpleStatementAction(Statement * statement);
+StatementList * RightAppendStatementAction(StatementList * statementList, Statement * statement);
 
-// Factores.
-int ExpressionFactorGrammarAction(const int value);
-int ConstantFactorGrammarAction(const int value);
+Statement * ConnectNodesStatementAction(ConnectNodes * connectNodes);
+Statement * CreateNodeStatementAction(CreateNode * createNode);
 
-// Constantes.
-int IntegerConstantGrammarAction(const int value);
+CreateNode * CreateNodeAction(char * name, NodeProperties * nodeProperties);
+
+NodeProperties * EmptyNodePropertiesAction();
+NodeProperties * SetPropertyListAction(PropertyList * propertyList);
+
+PropertyList * SimplePropertyAction(Property * property);
+PropertyList * RightAppendPropertyAction(PropertyList * propertyList, Property * property);
+
+Property * CustomUnionPropertyAction(char * nodeToName, LineType lineType);
+Property * DefaultUnionPropertyAction(char * nodeToName);
+Property * NodeTextPropertyAction(char * text);
+//Check this one
+Property * NodeBackgroundColorPropertyAction(int color);
+//Check this one
+Property * NodeBorderColorPropertyAction(int color);
+
+ConnectNodes * SimpleShortUnionPropertyAction(char * nodeFromName, char * nodeToName);
+ConnectNodes * DoubleShortUnionPropertyAction(char * nodeFromName, char * nodeToName);
+ConnectNodes * LoopShortUnionPropertyAction(char * nodeName);
+ConnectNodes * CustomSimpleShortUnionPropertyAction(char * nodeFromName, char * nodeToName, LineType lineType);
+ConnectNodes * CustomDoubleShortUnionPropertyAction(char * nodeFromName, char * nodeToName, LineType lineType);
+ConnectNodes * CustomLoopShortUnionPropertyAction(char * nodeName, LineType lineType);
 
 #endif
