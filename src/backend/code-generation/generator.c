@@ -80,7 +80,11 @@ void generateNodeProperties(NodeProperties * nodeProperties, const char * parent
 
 void generatePropertyList(PropertyList * propertyList, const char * parentNode, CreateNode * createNode) {
 	LogDebug("[Generator] propertyList");
-    Property * property = propertyList->firstProperty;
+    
+    Property * property;
+    if(propertyList != NULL){
+        property = propertyList->firstProperty;
+    } else return;
     
     while (property != NULL) {
         if (property->propertyType == TEXT_PROP) {
