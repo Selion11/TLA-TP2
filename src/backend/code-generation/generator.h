@@ -10,6 +10,7 @@ typedef struct {
     char *nodeFromName;
     char *nodeToName;
     LineType lineType;
+    int isUsed;
 } UnionWrappedNode;
 
 void Generator(Program * result);
@@ -21,5 +22,15 @@ void generateConnectNodes(ConnectNodes * connectNodes);
 void generateLineType(LineType lineType);
 void generateUnionType(UnionType unionType, ConnectNodes * connectNodes);
 void generatePopConnectNodes();
+
+/*******************************************************Cleanup************************************************************/
+void cleanupMemory(Program *result);
+void freeStatementList(StatementList *statementList);
+void freeStatement(Statement *statement);
+void freeCreateNode(CreateNode *createNode);
+void freeNodeProperties(NodeProperties *nodeProperties);
+void freePropertyList(PropertyList *propertyList);
+void freeProperty(Property *property);
+void freeConnectNodes(ConnectNodes *connectNodes);
 
 #endif

@@ -10,6 +10,7 @@ FILE * file;
 UnionWrappedNode * unionStack = NULL;
 int unionStackTop = -1;
 int unionStackSize = 0;
+int unionStackMemorySize = 0;
 int unionPropsFlag = 0;
 
 //Utility method
@@ -17,6 +18,8 @@ const char* colorTypeToString(ColorType colorType);
 void initUnionStack(int size);
 void pushUnion(UnionWrappedNode unionNode);
 UnionWrappedNode popUnion(void);
+void freeUnionWrappedNode(UnionWrappedNode *unionNode);
+void freeUnionStack(void);
 
 void Generator(Program * result) {
 	LogDebug("[Generator] Program");
@@ -44,7 +47,9 @@ void Generator(Program * result) {
     fprintf(file, "}");
 
 	fclose(file);
-	free(unionStack);
+
+    //cleanupMemory(result);
+	freeUnionStack();
 }
 
 void generateStatementList(StatementList * statementList) {
@@ -97,6 +102,7 @@ void generatePropertyList(PropertyList * propertyList, CreateNode * createNode) 
 			unionNode.nodeFromName = strdup(createNode->name);
 			unionNode.nodeToName = strdup(property->value.unionProp.nodeName);
 			unionNode.lineType = property->value.unionProp.lineType;
+            unionNode.isUsed = 1;
 
 			pushUnion(unionNode);
 			unionPropsFlag = 1;
@@ -165,14 +171,19 @@ const char* colorTypeToString(ColorType colorType) {
 }
 
 void initUnionStack(int size) {
-    unionStack = (UnionWrappedNode *)malloc(size * sizeof(UnionWrappedNode));
+    unionStack = (UnionWrappedNode *)calloc(size, size * sizeof(UnionWrappedNode));
     unionStackSize = size;
     unionStackTop = -1;
 }
 
 void pushUnion(UnionWrappedNode unionNode) {
     if (unionStackTop < unionStackSize - 1) {
-        unionStack[++unionStackTop] = unionNode;
+        unionStackTop++;
+        if(unionStack[unionStackTop].isUsed){
+            freeUnionWrappedNode(&unionNode);
+        }
+        unionStack[unionStackTop] = unionNode;
+        unionStackMemorySize++;
     } else {
         // Manejar error de desbordamiento de pila
         LogError("Union stack overflow");
@@ -186,5 +197,101 @@ UnionWrappedNode popUnion(void) {
         // Manejar error de pila vacía
         LogError("Union stack underflow");
         return (UnionWrappedNode){NULL, NULL, DOTTED_LINE}; // Valor de retorno de emergencia
+    }
+}
+
+void freeUnionWrappedNode(UnionWrappedNode *unionNode) {
+    if (unionNode != NULL) {
+        free(unionNode->nodeFromName);
+        free(unionNode->nodeToName);
+    }
+}
+
+void freeUnionStack(void) {
+    for (int i = 0; i <= unionStackMemorySize; ++i) {
+        freeUnionWrappedNode(&unionStack[i]);
+    }
+
+    free(unionStack);
+    unionStackTop = -1;
+    unionStackSize = 0;
+    unionStack = NULL;
+}
+
+
+/*********************************************************Cleanup**************************************************************************/
+
+void cleanupMemory(Program *result) {
+    if (result != NULL) {
+        freeStatementList(result->statementList);
+        free(result);
+    }
+    // Agrega aquí más llamadas para liberar otras estructuras dinámicas si es necesario
+}
+
+void freeStatementList(StatementList *statementList) {
+    if (statementList != NULL) {
+        Statement *statement = statementList->firstStatement;
+        while (statement != NULL) {
+            freeStatement(statement);
+            statement = statement->nextStatement;
+        }
+        free(statementList);
+    }
+}
+
+void freeStatement(Statement *statement) {
+    if (statement != NULL) {
+        if (statement->actionType == CREATION_AC) {
+            freeCreateNode(statement->createNode);
+        } else if (statement->actionType == UNION_AC) {
+            freeConnectNodes(statement->connectNodes);
+        }
+        free(statement);
+    }
+}
+
+void freeCreateNode(CreateNode *createNode) {
+    if (createNode != NULL) {
+        freeNodeProperties(createNode->nodeProperties);
+        free(createNode->name);
+        free(createNode);
+    }
+}
+
+void freeNodeProperties(NodeProperties *nodeProperties) {
+    if (nodeProperties != NULL) {
+        freePropertyList(nodeProperties->propertyList);
+        free(nodeProperties);
+    }
+}
+
+void freePropertyList(PropertyList *propertyList) {
+    if (propertyList != NULL) {
+        Property *property = propertyList->firstProperty;
+        while (property != NULL) {
+            freeProperty(property);
+            property = property->nextProperty;
+        }
+        free(propertyList);
+    }
+}
+
+void freeProperty(Property *property) {
+    if (property != NULL) {
+        if (property->propertyType == TEXT_PROP) {
+            free(property->value.text);
+        } else if (property->propertyType == UNION_PROP) {
+            free(property->value.unionProp.nodeName);
+        }
+        free(property);
+    }
+}
+
+void freeConnectNodes(ConnectNodes *connectNodes) {
+    if (connectNodes != NULL) {
+        free(connectNodes->nodeFrom);
+        free(connectNodes->nodeTo);
+        free(connectNodes);
     }
 }
