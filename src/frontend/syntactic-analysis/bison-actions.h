@@ -31,9 +31,7 @@ PropertyList * RightAppendPropertyAction(PropertyList * propertyList, Property *
 Property * CustomUnionPropertyAction(char * nodeToName, LineType lineType);
 Property * DefaultUnionPropertyAction(char * nodeToName);
 Property * NodeTextPropertyAction(char * text);
-//Check this one
 Property * NodeBackgroundColorPropertyAction(ColorType color);
-//Check this one
 Property * NodeBorderColorPropertyAction(ColorType color);
 
 ConnectNodes * SimpleShortUnionPropertyAction(char * nodeFromName, char * nodeToName);

@@ -35,7 +35,7 @@ void Generator(Program * result) {
 
 	fprintf(file, "digraph AST {\n");
     
-    generateStatementList(result->statementList, "program");
+    generateStatementList(result->statementList);
     
 	if(unionPropsFlag){
 		generatePopConnectNodes();
@@ -47,38 +47,38 @@ void Generator(Program * result) {
 	free(unionStack);
 }
 
-void generateStatementList(StatementList * statementList, const char * parentNode) {
+void generateStatementList(StatementList * statementList) {
 	LogDebug("[Generator] statementList");
     Statement *statement = statementList->firstStatement;
     
 		while (statement != NULL) {
 			if (statement->actionType == CREATION_AC) {
-				generateCreateNode(statement->createNode, parentNode);
+				generateCreateNode(statement->createNode);
 			} else if (statement->actionType == UNION_AC) {
-				generateConnectNodes(statement->connectNodes, parentNode);
+				generateConnectNodes(statement->connectNodes);
 			}
 			
 			statement = statement->nextStatement;
 		}
 }
 
-void generateCreateNode(CreateNode * createNode, const char * parentNode) {
+void generateCreateNode(CreateNode * createNode) {
 	LogDebug("[Generator] createNode");
     if (createNode != NULL) {
         fprintf(file, "  %s [", createNode->name);
-        generateNodeProperties(createNode->nodeProperties, "createNode_%p", createNode);
+        generateNodeProperties(createNode->nodeProperties, createNode);
 		fprintf(file, "];\n");
     }
 }
 
-void generateNodeProperties(NodeProperties * nodeProperties, const char * parentNode, CreateNode * createNode) {
+void generateNodeProperties(NodeProperties * nodeProperties, CreateNode * createNode) {
 	LogDebug("[Generator] nodeProperties");
     if (nodeProperties != NULL) {
-        generatePropertyList(nodeProperties->propertyList, parentNode, createNode);
+        generatePropertyList(nodeProperties->propertyList, createNode);
     }
 }
 
-void generatePropertyList(PropertyList * propertyList, const char * parentNode, CreateNode * createNode) {
+void generatePropertyList(PropertyList * propertyList, CreateNode * createNode) {
 	LogDebug("[Generator] propertyList");
     
     Property * property;
@@ -106,7 +106,7 @@ void generatePropertyList(PropertyList * propertyList, const char * parentNode, 
     }
 }
 
-void generateConnectNodes(ConnectNodes * connectNodes, const char * parentNode) {
+void generateConnectNodes(ConnectNodes * connectNodes) {
 	LogDebug("[Generator] connectNodes");
     if (connectNodes != NULL) {
 		UnionType unionType = connectNodes->unionType;

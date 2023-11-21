@@ -13,13 +13,13 @@ typedef struct {
 } UnionWrappedNode;
 
 void Generator(Program * result);
-void generateStatementList(StatementList * statementList, const char * parentNode);
-void generateCreateNode(CreateNode * createNode, const char * parentNode);
-void generateNodeProperties(NodeProperties * nodeProperties, const char * parentNode, CreateNode * createNode);
-void generatePropertyList(PropertyList * propertyList, const char * parentNode, CreateNode * createNode);
-void generateConnectNodes(ConnectNodes * connectNodes, const char * parentNode);
+void generateStatementList(StatementList * statementList);
+void generateCreateNode(CreateNode * createNode);
+void generateNodeProperties(NodeProperties * nodeProperties, CreateNode * createNode);
+void generatePropertyList(PropertyList * propertyList, CreateNode * createNode);
+void generateConnectNodes(ConnectNodes * connectNodes);
 void generateLineType(LineType lineType);
-void generateUnionType(UnionType unionType, const char * parentNode, ConnectNodes * connectNodes);
+void generateUnionType(UnionType unionType, ConnectNodes * connectNodes);
 void generatePopConnectNodes();
 
 #endif
