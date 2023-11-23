@@ -1,4 +1,4 @@
-CREATE NODE node(
+CREATE NODE node1(
     TEXT("Custom node"),
     BORDER COLOR(RED),
     BACKGROUND(BLUE)
