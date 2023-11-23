@@ -1,8 +1,8 @@
 [![✗](https://img.shields.io/badge/Release-v0.3.0-ffb600.svg?style=for-the-badge)](https://github.com/agustin-golmar/Flex-Bison-Compiler/releases)
 
-# Compilador Flex/Bison
+# Trabajo Práctico Especial - "72.39 - Autómatas, Teoría de Lenguajes y Compiladores" - Flex/Bison
 
-Un compilador vacío de ejemplo construido con Flex y Bison.
+Este lenguaje propone una forma rápida y fácil de crear mapas conceptuales, permitiéndole al usuario definir sus propios nodos y personalizar la forma conectarlos.
 
 ## Requerimientos
 
@@ -35,13 +35,7 @@ Luego se deberá abrir la solución generada `bin\Compiler.sln` con el IDE _Micr
 
 ## Ejecución
 
-Para compilar un programa, primero cree un archivo vacío denominado `program` (o el nombre que desee), con el siguiente contenido:
-
-```
-123123 + 123 - 2 * (454 + 890 / 89)
-```
-
-Luego, ejecute el compilador desde el directorio raíz del proyecto, o desde cualquier otro lugar indicando el path hacia el script `start.sh` y pasando por parámetro el path hacia el programa a compilar:
+Ejecute el compilador desde el directorio raíz del proyecto, o desde cualquier otro lugar indicando el path hacia el script `start.sh` y pasando por parámetro el path hacia el programa a compilar:
 
 ```bash
 user@machine:path/ $ script/start.sh program
@@ -53,7 +47,9 @@ En Windows:
 user@machine:path/ $ script\start.bat program
 ```
 
-Debería obtener el resultado correcto de evaluar el programa anterior: `122318`.
+Debería obtener los siguientes archivos:
+* ast_graph.dot, posee la traducción del programa;
+* ast_graph.pdf, posee el gráfico.
 
 ## Testing
 
