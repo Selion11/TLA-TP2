@@ -14,10 +14,12 @@
 %option yylineno
 
 /* Patrones reutilizables. */
-digit			[0-9]
-endline			[\n]
-whitespace		[ \f\n\r\t\v]
+whitespace		[ \n\r\t]
 
+/* Regex para cadenas entre comillas dobles. */
+string_literal  ["]([^"\\\n]|\\(.|\n))*["]
+
+name            [A-Za-z][A-Za-z0-9_]*
 
 %%
 
@@ -46,14 +48,14 @@ whitespace		[ \f\n\r\t\v]
 "DOTTED"                                    { return LineTypesPatternActions(yytext); }
 "WIGGLY"                                    { return LineTypesPatternActions(yytext); }
 
-[ \t\n]     								{ IgnoredPatternAction(yytext, yyleng); }
+{whitespace}     							{ IgnoredPatternAction(yytext, yyleng); }
 
 
 
-["]([^"\\\n]|\\(.|\n))*["]                  { return StringPatternAction(yytext, yyleng); }
+{string_literal}                            { return StringPatternAction(yytext, yyleng); }
 
 
-[A-Za-z][A-Za-z0-9_]*                       { return NamePatternAction(yytext, yyleng); }
+{name}                                      { return NamePatternAction(yytext, yyleng); }
 
 .											{ return UnknownPatternAction(yytext, yyleng); }
 
