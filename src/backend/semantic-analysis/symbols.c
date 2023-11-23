@@ -1,45 +1,43 @@
+#include "symbols.h"
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
 
-typedef struct symbol{
-    char * name;
-    symbol * next;
+#define MAX_SIZE 100
 
-} symbol;
+// Global variables
+char *list[MAX_SIZE];
+int size = 0;
 
-symbol * listStart = NULL;
-symbol * last = NULL;
-
-/* 1 no match found
- 0 match found*/
-int verify(char * check){
-    if(listStart == NULL){
-        return 1;
-    }
-    symbol * node = listStart;
-    while(node != NULL){
-        if(strcmp(check,node->name)){
-            return 0;
+// Function to add an element to the list if it is not repeated
+void addToList(char *element) {
+    if (!searchInList(element)) {
+        if (size < MAX_SIZE) {
+            list[size] = malloc(strlen(element) + 1);
+            strcpy(list[size], element);
+            size++;
+            printf("Element '%s' added to the list.\n", element);
+        } else {
+            printf("The list is full. Cannot add more elements.\n");
         }
-        node = node->next;
+    } else {
+        printf("The element '%s' is already in the list. It will not be added.\n", element);
     }
-    return 1;
-
 }
 
-int addToList(char * name){
-    if(verify(name) == 0){
-        symbol * newNode = calloc(1,sizeof(symbol));
-        newNode->name = malloc(sizeof(char) * (strlen(name) + 1));
-        strcpy(newNode->name, name);
-        if(listStart == NULL){
-            listStart = newNode;
-            last = listStart;
+// Function to search for an element in the list
+int searchInList(char *element) {
+    for (int i = 0; i < size; i++) {
+        if (strcmp(list[i], element) == 0) {
+            return 1;
         }
-        last->next = newNode;
-        last = last->next;
-        return 0;
     }
-    return 1;
+    return 0;
+}
+
+// Function to free the memory allocated for the list
+void freeList() {
+    for (int i = 0; i < size; i++) {
+        free(list[i]);
+    }
 }

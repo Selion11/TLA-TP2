@@ -135,6 +135,9 @@ CreateNode * CreateNodeAction(char * name, NodeProperties * nodeProperties){
 	}
 	strcpy(createNode->name, name);
 
+	//Add to symbol list
+	addToList(name);
+
 	return createNode;
 }
 

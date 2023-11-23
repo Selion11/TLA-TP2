@@ -50,6 +50,7 @@ void Generator(Program * result) {
 
     //cleanupMemory(result);
 	freeUnionStack();
+    freeList();
 }
 
 void generateStatementList(StatementList * statementList) {
@@ -98,6 +99,13 @@ void generatePropertyList(PropertyList * propertyList, CreateNode * createNode) 
             const char * colorString = colorTypeToString(property->value.colorType);
             fprintf(file, "%s=%s, ", (property->propertyType == BACKGROUND_PROP) ? "style=filled, fillcolor" : "color", colorString);
         } else if (property->propertyType == UNION_PROP) {
+
+            if(searchInList(property->value.unionProp.nodeName) == 0){
+		        LogError("[GENERATOR] [ERROR] %s node not found", property->value.unionProp.nodeName);
+                freeList();
+		        exit(1);
+	        }    
+
 			UnionWrappedNode unionNode;
 			unionNode.nodeFromName = strdup(createNode->name);
 			unionNode.nodeToName = strdup(property->value.unionProp.nodeName);
@@ -114,6 +122,7 @@ void generatePropertyList(PropertyList * propertyList, CreateNode * createNode) 
 
 void generateConnectNodes(ConnectNodes * connectNodes) {
 	LogDebug("[Generator] connectNodes");
+
     if (connectNodes != NULL) {
 		UnionType unionType = connectNodes->unionType;
 		if (unionType == ARROW_UNION || unionType == LOOP_UNION)

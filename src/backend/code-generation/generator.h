@@ -2,6 +2,7 @@
 #define GENERATOR_HEADER
 
 #include "../../backend/semantic-analysis/abstract-syntax-tree.h"
+#include "../../backend/semantic-analysis/symbols.h"
 #include <stdlib.h>
 #include <string.h>
 

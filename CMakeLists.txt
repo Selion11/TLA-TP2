@@ -5,6 +5,13 @@ cmake_minimum_required(VERSION 3.22)
 # Nombre del proyecto, y lenguaje utilizado (C, en este caso).
 project(Compiler C)
 
+
+# Habilitar AddressSanitizer si se encuentra disponible
+#if (CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
+#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address")
+#    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
+#endif()
+
 # Compilar el parser con Bison, generando contra-ejemplos en caso de que se presenten conflictos.
 add_custom_command(
 	OUTPUT ../src/frontend/syntactic-analysis/bison-parser.c ../src/frontend/syntactic-analysis/bison-parser.h
@@ -63,6 +70,7 @@ add_executable(Compiler
 	src/backend/code-generation/generator.c
 	src/backend/domain-specific/calculator.c
 	src/backend/support/logger.c
+	src/backend/semantic-analysis/symbols.c
 	src/frontend/lexical-analysis/flex-actions.c
 	src/frontend/lexical-analysis/flex-scanner.c
 	src/frontend/syntactic-analysis/bison-actions.c
