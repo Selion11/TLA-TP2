@@ -13,9 +13,6 @@
 /* Dispone una variable global "yylineno" con el número de línea actual. */
 %option yylineno
 
-/* Contextos de Flex. */
-%x COMMENT
-
 /* Patrones reutilizables. */
 digit			[0-9]
 endline			[\n]
