@@ -1,0 +1,5 @@
+CREATE NODE node(
+    TEXT("Custom node"),
+    BORDER COLOR(RED),
+    BACKGROUND(BLUE)
+);

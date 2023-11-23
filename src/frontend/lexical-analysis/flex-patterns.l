@@ -55,7 +55,7 @@ name            [A-Za-z][A-Za-z0-9_]*
 {string_literal}                            { return StringPatternAction(yytext, yyleng); }
 
 
-{name}                                      { return NamePatternAction(yytext, yyleng); }
+{name}                                      { if (strcmp(yytext, "node") != 0) return NamePatternAction(yytext, yyleng); }
 
 .											{ return UnknownPatternAction(yytext, yyleng); }
 
