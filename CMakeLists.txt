@@ -68,7 +68,6 @@ endif ()
 add_executable(Compiler
 	src/main.c
 	src/backend/code-generation/generator.c
-	src/backend/domain-specific/calculator.c
 	src/backend/support/logger.c
 	src/backend/semantic-analysis/symbols.c
 	src/frontend/lexical-analysis/flex-actions.c
